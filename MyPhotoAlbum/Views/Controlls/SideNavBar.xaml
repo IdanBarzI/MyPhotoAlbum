@@ -1,0 +1,86 @@
+﻿<UserControl
+    x:Class="MyPhotoAlbum.Views.Controlls.SideNavBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyPhotoAlbum.Views.Controlls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:MyPhotoAlbum.ViewModels"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.DataContext>
+        <viewModels:NavigationViewModel x:Name="vm"/>
+    </UserControl.DataContext>
+    <Grid>
+        <SplitView x:Name="NavBar"
+                   IsPaneOpen="false"
+                   DisplayMode="CompactInline"
+                   OpenPaneLength="250"
+                   CompactPaneLength="75">
+            <SplitView.Pane>
+                <Grid Background="#2E333A" >
+                    <ListView>
+                        <ListViewItem x:Name="Menu"
+                                      Height="75"
+                                      Tapped="Menu_Tapped">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/Menu.png" Width="50" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="40,10,0,0"
+                                           Foreground="White"
+                                           FontSize="22"
+                                           FontFamily="arial"
+                                           Text="M E N U"
+                                           Style="{StaticResource font_style}"/>
+                            </StackPanel>
+                        </ListViewItem>
+
+                        <ListViewItem x:Name="Album"
+                                      TabIndex="1"
+                                      Height="75"
+                                      Margin="0,30,0,0"
+                                      Tapped="{x:Bind vm.Album_Tapped}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/Album.png" Width="55" />
+                                <TextBlock Margin="30,0,0,0"
+                                           FontSize="22"
+                                           Text="Album"
+                                           Style="{StaticResource font_style}"/>
+                            </StackPanel>
+                        </ListViewItem>
+
+                        <ListViewItem x:Name="AddPhoto"
+                                      Height="75"
+                                      Margin="0,30,0,0"
+                                      Tapped="{x:Bind vm.AddPhoto_Tapped}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/AddPhoto.png" Width="55" />
+                                <TextBlock Margin="30,0,0,0"
+                                           FontSize="22"
+                                           Text="Add Photo"
+                                           Style="{StaticResource font_style}"/>
+                            </StackPanel>
+                        </ListViewItem>
+
+                        <ListViewItem x:Name="Exit"
+                                      Height="75"
+                                      Margin="0,30,0,0"
+                                      Tapped="{x:Bind vm.Exit_Tapped}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/Exit.png" Width="65" />
+                                <TextBlock 
+                                           Margin="30,0,0,0"
+                                           FontSize="22"
+                                           Text="Exit"
+                                           Style="{StaticResource font_style}"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+        </SplitView>
+
+    </Grid>
+</UserControl>

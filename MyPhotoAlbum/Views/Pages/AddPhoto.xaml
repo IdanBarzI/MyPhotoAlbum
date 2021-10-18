@@ -1,0 +1,67 @@
+﻿<Page
+    x:Class="MyPhotoAlbum.Views.Pages.AddPhoto"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyPhotoAlbum.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:MyPhotoAlbum.ViewModels"
+    mc:Ignorable="d"
+      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+
+    <Page.DataContext>
+        <viewModels:AddPhotoViewModel x:Name="vm"/>
+    </Page.DataContext>
+    <Grid>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Margin="100"
+                    VerticalAlignment="Center"
+                    AllowDrop="True"
+                    DragOver="{x:Bind vm.StackPanel_DragOver}"
+                    Drop="{x:Bind vm.StackPanel_DropAsync}">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="/Assets/DropBg.png"/>
+            </StackPanel.Background>
+            <Image x:Name="imageControl"
+                   Source="{x:Bind vm.Source, UpdateSourceTrigger=PropertyChanged ,Mode=TwoWay}"
+                   Width="800"
+                   Height="450"/>
+            <StackPanel>
+                <TextBox x:Name="PicName"
+                         Text="{x:Bind vm.PicName, UpdateSourceTrigger=LostFocus, Mode=TwoWay}"
+                         PlaceholderText="Picture Description" 
+                         TextAlignment="Center">
+                </TextBox>
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    Margin="100" >
+            <Button x:Name="StartCam" Style="{StaticResource AccentButtonStyle}" Margin="0,0,0,-33" Click="{x:Bind vm.StartCam_Click}" Width="150"
+                ui:FrameworkElementExtensions.Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Start Camera"/>
+                        <SymbolIcon Margin="5,0,0,0" Symbol="Camera" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Save" Style="{StaticResource primary_button}" HorizontalAlignment="Right" Width="150" Click="{x:Bind vm.Save_Click}"
+                ui:FrameworkElementExtensions.Cursor="Hand">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Save in Album"/>
+                        <SymbolIcon Margin="5,0,0,0" Symbol="Pictures"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

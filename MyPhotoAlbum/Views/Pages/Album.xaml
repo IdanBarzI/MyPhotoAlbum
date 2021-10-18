@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="MyPhotoAlbum.Views.Pages.Album"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyPhotoAlbum.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:MyPhotoAlbum.ViewModels"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:MyPhotoAlbum.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModels:AlbumViewModel x:Name="viewModel"/>
+    </Page.DataContext>
+    <Page.Resources>
+        <DataTemplate x:Key="PhotosTemplate" x:DataType="models:Photo">
+            <Grid Width="400" Height="225" BorderBrush="Purple">
+                <Image Source="{x:Bind ImageSource}" Stretch="Fill"/>
+                <TextBlock Text="{x:Bind PhotoName, Converter={StaticResource AlbumFieldConverter},ConverterParameter=PhotoName}"
+                           FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind Date, Converter={StaticResource AlbumFieldConverter},ConverterParameter=Date}"
+                           HorizontalAlignment="Right"
+                           FontWeight="Bold" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
+                                   StretchContentForSingleRow="False"
+                                   OneRowModeEnabled="False"
+                                   ItemHeight="250"
+                                   DesiredWidth="400"
+                                   SelectionMode="Single"
+                                   IsItemClickEnabled="True"
+                                   ItemsSource="{x:Bind viewModel.Photos}"
+                                   ItemTemplate="{StaticResource PhotosTemplate}"/>
+    </Grid>
+</Page>
